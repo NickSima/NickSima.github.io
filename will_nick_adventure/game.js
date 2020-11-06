@@ -34,24 +34,6 @@ window.addEventListener("load", function () {
 	loadLevel();
 });//load listener
 
-//move horse
-document.addEventListener("keydown", function(e){
-	switch (e.keycode) {
-		case 65:
-		case 37://left
-			if (currentLocationOfHorse % widthOfBoard !== 0){
-				tryToMove()
-			}
-		case 87:
-		case 38://up
-		case 68:
-		case 39://right
-		case 83:
-		case 40://down
-		
-	}
-});//key listener
-
 //load levels 0 - max level
 function loadLevel(){
 	let levelMap = levels[currentLevel];
