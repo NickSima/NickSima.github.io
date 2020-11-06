@@ -26,7 +26,6 @@ var currentLevel = 0; //starting level
 var riderOn = false; //is the rider on?
 var currentLocationOfHorse = 0;
 var currentAnimation; //allows 1 animation per level
-var widthOfBoard = 5;
 
 //start game
 window.addEventListener("load", function () {
