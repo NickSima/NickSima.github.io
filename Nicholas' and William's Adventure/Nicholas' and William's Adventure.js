@@ -56,7 +56,6 @@ function loadLevel(){
 //index
 //direction
 function animateEnemy(boxes, index, direction) {
-	console.log("boxes.length " + boxes.length + " index " + index + " direction " + direction);
 	//exit function if no animation
 	if (boxes.length <= 0) {return;}
 	
@@ -94,12 +93,9 @@ function animateEnemy(boxes, index, direction) {
 		}//if else
 		
 	}//if else
-		
-	
 	
 	currentAnimation = setTimeout(function() {
 		animateEnemy(boxes, index, direction);
 	}, 750);
-	
 	
 }//animate Enemy
