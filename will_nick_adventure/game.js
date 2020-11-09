@@ -168,7 +168,7 @@ function tryToMove(direction) {
 		
 		return;
 		
-	}//if (fence)
+	}//if
 	
 	//add rider if there is a rider
 	if (nextClass == "rider") {
@@ -197,13 +197,8 @@ function tryToMove(direction) {
 	
 	//encounters enemy
 	if (nextClass.includes("enemy")) {
-		document.getElementById("lose").style.display = "block";
-		
-		//stop action
-		clearTimeout(currentAnimation);
-		canMove = false;
+		gameOver();
 		return;
-		
 	}//if
 	
 	//move to next level
@@ -222,18 +217,21 @@ function levelUp(nextClass) {
 		//display next level text for 1 second
 		setTimeout(function(){
 			document.getElementById("levelup").style.display = "none";
-			canMove = true;
 			
 			//check for next level
 			if(currentLevel < levels.length - 1){
+				canMove = true;
 				currentLevel++;
 				loadLevel();
-			}//if
+			} else {
+				document.getElementById("win").style.display = "block";
+			}//if else
 			
 		}, 1000);
 		
 	}//if
 }//level up
+
 
 //load levels 0 - max level
 function loadLevel(){
@@ -253,16 +251,35 @@ function loadLevel(){
 	
 }//loadLevel
 
+
 //animate enemy left and right
 function animateEnemy(boxes, index, direction) {
+var currentLocationOfEnemy = 0;
+
 	//exit function if no animation
 	if (boxes.length <= 0) {return;}
 	
+	//end game if horse is on player
+	for (i = 0; i < gridBoxes.length; i++) {
+		if (levels[currentLevel][i].includes("animate")) {
+			currentLocationOfEnemy = i + index;
+			break;
+		}
+	}//for
+	if (currentLocationOfEnemy == currentLocationOfHorse) {
+		gameOver();
+		return;
+	}//if
+	
 	//update images
-	if(direction == "right") {
+	if (direction == "right") {
 		boxes[index].classList.add("enemyright");
 	} else if(direction == "left") {
 		boxes[index].classList.add("enemyleft");
+	} else if(direction == "up") {
+		boxes[index].classList.add("enemyup");
+	} else if(direction == "down") {
+		boxes[index].classList.add("enemydown");
 	}//if else
 		
 	//remove images from other boxes
@@ -270,6 +287,8 @@ function animateEnemy(boxes, index, direction) {
 		if (i != index) {
 			boxes[i].classList.remove("enemyright");
 			boxes[i].classList.remove("enemyleft");
+			boxes[i].classList.remove("enemyup");
+			boxes[i].classList.remove("enemydown");
 		}//if
 	}//for
 	
@@ -292,9 +311,22 @@ function animateEnemy(boxes, index, direction) {
 		}//if else
 		
 	}//if else
-	
+
 	currentAnimation = setTimeout(function() {
 		animateEnemy(boxes, index, direction);
 	}, 750);
 	
 }//animate Enemy
+
+
+//display losing screen
+function gameOver() {
+	
+	//display losing message
+	document.getElementById("lose").style.display = "block";
+	
+	//stop action
+	clearTimeout(currentAnimation);
+	canMove = false;
+
+}//gameOver
