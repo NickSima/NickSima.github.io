@@ -29,6 +29,7 @@ var riderOn = false; //is the rider on?
 var canMove = true; //can move?
 var currentLocationOfHorse = 0;
 var currentAnimation; //allows 1 animation per level
+var timerAnimation; //timer animation
 var widthOfBoard = 5;
 
 //start game
@@ -197,7 +198,7 @@ function tryToMove(direction) {
 	
 	//encounters enemy
 	if (nextClass.includes("enemy")) {
-		gameOver();
+		gameOver("Enemy Encountered.");
 		return;
 	}//if
 	
@@ -210,23 +211,25 @@ function tryToMove(direction) {
 //level up
 function levelUp(nextClass) {
 	if (nextClass == "flag" && riderOn) {
-		document.getElementById("levelup").style.display = "block";
+		
 		clearTimeout(currentAnimation);
 		canMove = false;
+		timer(-1);
+		
+		//check for next level
+		if(currentLevel < levels.length - 1){
+			document.getElementById("levelup").style.display = "block";
+		} else {
+			document.getElementById("win").style.display = "block";
+			return;
+		}//if else
 		
 		//display next level text for 1 second
 		setTimeout(function(){
 			document.getElementById("levelup").style.display = "none";
-			
-			//check for next level
-			if(currentLevel < levels.length - 1){
-				canMove = true;
-				currentLevel++;
-				loadLevel();
-			} else {
-				document.getElementById("win").style.display = "block";
-			}//if else
-			
+			canMove = true;
+			currentLevel++;
+			loadLevel();
 		}, 1000);
 		
 	}//if
@@ -245,11 +248,49 @@ function loadLevel(){
 		if (levelMap[i].includes("horse")) currentLocationOfHorse = i;
 	}//for
 	
+	//start timer
+	timer(5 * (currentLevel + 2));
+	
 	animateBoxes = document.querySelectorAll(".animate");
 	
 	animateEnemy(animateBoxes, 0, "right");
 	
 }//loadLevel
+
+//timer
+function timer(time) {
+	
+	//reset timer (invisible)
+	if (time == -1) {
+		document.getElementById("timer").innerHTML = "";
+		clearTimeout(timerAnimation);
+		return;
+	}//if
+	
+	//pause timer
+	if (time == -2) {
+		document.getElementById("timer").innerHTML = "paused";
+		clearTimeout(timerAnimation);
+		return;
+	}//if
+	
+	//time up
+	if (time <= 0) {
+		document.getElementById("timer").innerHTML = "0";
+		gameOver("Time Up.");
+		clearTimeout(timer);
+		return;
+	}//if
+	
+	//display
+	document.getElementById("timer").innerHTML = "Time: " + Math.ceil(time);
+	
+	//repeat
+	timerAnimation = setTimeout(function() {
+		timer(time - 0.05);
+	}, 50);//repeat
+	
+}//timer
 
 
 //animate enemy left and right
@@ -267,7 +308,7 @@ var currentLocationOfEnemy = 0;
 		}
 	}//for
 	if (currentLocationOfEnemy == currentLocationOfHorse) {
-		gameOver();
+		gameOver("Encountered by Enemy.");
 		return;
 	}//if
 	
@@ -320,13 +361,15 @@ var currentLocationOfEnemy = 0;
 
 
 //display losing screen
-function gameOver() {
+function gameOver(reason) {
 	
 	//display losing message
 	document.getElementById("lose").style.display = "block";
+	document.getElementById("deathreason").innerHTML = reason;
 	
 	//stop action
 	clearTimeout(currentAnimation);
+	timer(-1);
 	canMove = false;
 
 }//gameOver
