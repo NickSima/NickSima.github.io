@@ -43,25 +43,25 @@ document.addEventListener("keydown", function(e){
 	switch (e.keyCode) {
 		case 65:
 		case 37://left
-			if (currentLocationOfHorse % widthOfBoard !== 0 && canMove){
+			if (currentLocationOfHorse % widthOfBoard !== 0 && canMove == true){
 				tryToMove("left");
 			}//if
 			break;
 		case 87:
 		case 38://up
-			if (currentLocationOfHorse >= widthOfBoard && canMove){
+			if (currentLocationOfHorse >= widthOfBoard && canMove == true){
 				tryToMove("up");
 			}//if
 			break;
 		case 68:
 		case 39://right
-			if (currentLocationOfHorse % widthOfBoard < widthOfBoard - 1 && canMove){
+			if (currentLocationOfHorse % widthOfBoard < widthOfBoard - 1 && canMove == true){
 				tryToMove("right");
 			}//if
 			break;
 		case 83:
 		case 40://down
-			if (currentLocationOfHorse + widthOfBoard < widthOfBoard * widthOfBoard && canMove){
+			if (currentLocationOfHorse + widthOfBoard < widthOfBoard * widthOfBoard && canMove == true){
 				tryToMove("down");
 			}//if
 			break;
@@ -214,6 +214,7 @@ function levelUp(nextClass) {
 		
 		clearTimeout(currentAnimation);
 		canMove = false;
+		console.log("no");
 		timer(-1);
 		
 		//check for next level
@@ -228,6 +229,7 @@ function levelUp(nextClass) {
 		setTimeout(function(){
 			document.getElementById("levelup").style.display = "none";
 			canMove = true;
+			console.log("yes");
 			currentLevel++;
 			loadLevel();
 		}, 1000);

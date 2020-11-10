@@ -3,6 +3,7 @@ body {
 }
 
 #gameBoard{
+	background-image: url("images/tile.png");
 	border: 1px solid black;
 	display: grid;
 	grid-template-columns: 120px 120px 120px 120px 120px;
@@ -16,9 +17,9 @@ body {
 }
 
 #gameBoard div{
-	background-color: #40c020;
 	background-repeat: no-repeat;
 	background-size: cover;
+	z-index: 0;
 }
 
 #timer{
