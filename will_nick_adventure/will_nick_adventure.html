@@ -13,8 +13,7 @@
 		<!-- page content -->
 		<div class="heading">
 			<div id="timer">time: </div>
-			<div id="pause">&#9646;&#9646;</div>
-			<div id="lives"></div>
+			<div id="pause" onclick="pause(1)">&#9646;&#9646;</div>
 		</div>
 		
 		<div id="gameBoard">
@@ -50,15 +49,18 @@
 			
 		</div>
 		
+		<div class="message" id="pausemessage">Paused
+			<p id="underlined" onclick="pause(2)">Resume</p>
+		</div>
 		<div class="message" id="lose">Game Over...
 			<p id="deathreason"></p>
-			<p id="restart" onclick="location.reload()">Restart</p>
+			<p id="underlined" onclick="location.reload()">Restart</p>
 		</div>
 		<div class="message" id="levelup">Next Level...
-			<p>=== Generating Next Level ===</p>
+			<p>Loading Next Level...</p>
 		</div>
 		<div class="message" id="win">You Win!
-			<p id="restart" onclick="location.reload()">Replay Game</p>
+			<p id="underlined" onclick="location.reload()">Replay Game</p>
 		</div>
 		
 		<!-- include an external JavaScript file -->

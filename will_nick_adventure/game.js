@@ -1,14 +1,14 @@
 const levels = [
 	//level 0
 	["flag", "rock", "", "", "",
-	"fenceside", "rock", "", "", "rider",
+	"fenceup", "rock", "", "", "rider",
 	"", "tree", "animate", "animate", "animate",
 	"", "water", "", "", "",
-	"", "fence", "", "horseup", "",],
+	"", "fenceleft", "", "horseup", "",],
 	
 	//level 1
 	["flag", "water", "", "", "",
-	"fenceside", "water", "", "", "rider",
+	"fenceup", "water", "", "", "rider",
 	"animate", "bridge animate", "animate", "animate", "animate",
 	"", "water", "", "", "",
 	"", "water", "horseup", "", "",],
@@ -17,7 +17,7 @@ const levels = [
 	["tree", "tree", "flag", "tree", "tree",
 	"animate", "animate", "animate", "animate", "animate",
 	"water", "bridge", "water", "water", "water",
-	"", "", "", "fence", "",
+	"", "", "", "fenceright", "",
 	"rider", "rock", "", "", "horseup",]
 ]; //end of levels
 
@@ -31,12 +31,14 @@ var currentLocationOfHorse = 0;
 var currentAnimation; //allows 1 animation per level
 var timerAnimation; //timer animation
 var widthOfBoard = 5;
+var ispaused = 0;
 
 //start game
 window.addEventListener("load", function () {
 	gridBoxes = document.querySelectorAll("#gameBoard div");
 	loadLevel();
 });//load listener
+
 
 //move horse
 document.addEventListener("keydown", function(e){
@@ -65,8 +67,14 @@ document.addEventListener("keydown", function(e){
 				tryToMove("down");
 			}//if
 			break;
+		case 27: //escape
+			if (canMove){
+				pause(1);
+			}//if
+			break;
 	}//switch
 });//key listener
+
 
 //try to move horse
 function tryToMove(direction) {
@@ -107,8 +115,11 @@ function tryToMove(direction) {
 	//don't move if horse encounters fence without rider
 	if (!riderOn && nextClass.includes("fence")) {return; }
 	
+	//don't move if horse encounters flag without rider
+	if (!riderOn && nextClass == "flag") {return;}
+	
 	//move two spaces with animation if horse encounters fence with a rider
-	if (nextClass.includes("fence") && (riderOn)) {
+	if (nextClass.includes("fence") && riderOn) {
 		
 		//find next location
 		switch (direction) {
@@ -160,10 +171,14 @@ function tryToMove(direction) {
 			gridBoxes[currentLocationOfHorse].className = nextClass2;
 			
 			//if next box is a flag, go up a level
-			levelUp(nextClass);
+			if (nextClass == "flag") {
+				levelUp(nextClass);
+			}//if
 			
 			//reallow movement
-			canMove = true;
+			if (nextClass != "flag") {
+				canMove = true;
+			}
 			
 		}, 350);
 		
@@ -203,38 +218,38 @@ function tryToMove(direction) {
 	}//if
 	
 	//move to next level
-	levelUp(nextClass);
+	if (nextClass == "flag") {
+		levelUp(nextClass);
+	}//if
 	
 }//try to move
 
 
 //level up
 function levelUp(nextClass) {
-	if (nextClass == "flag" && riderOn) {
-		
-		clearTimeout(currentAnimation);
-		canMove = false;
-		console.log("no");
-		timer(-1);
-		
-		//check for next level
-		if(currentLevel < levels.length - 1){
-			document.getElementById("levelup").style.display = "block";
-		} else {
-			document.getElementById("win").style.display = "block";
-			return;
-		}//if else
-		
-		//display next level text for 1 second
-		setTimeout(function(){
-			document.getElementById("levelup").style.display = "none";
-			canMove = true;
-			console.log("yes");
-			currentLevel++;
-			loadLevel();
-		}, 1000);
-		
-	}//if
+	
+	clearTimeout(currentAnimation);
+	canMove = false;
+	timer(-1);
+	document.getElementById("pause").style.display = "none";
+	
+	//check for next level
+	if(currentLevel < levels.length - 1){
+		document.getElementById("levelup").style.display = "block";
+	} else {
+		document.getElementById("win").style.display = "block";
+		return;
+	}//if else
+	
+	//display next level text for 1 second
+	setTimeout(function(){
+		document.getElementById("levelup").style.display = "none";
+		document.getElementById("pause").style.display = "inline-block";
+		canMove = true;
+		currentLevel++;
+		loadLevel();
+	}, 1000);
+	
 }//level up
 
 
@@ -251,13 +266,14 @@ function loadLevel(){
 	}//for
 	
 	//start timer
-	timer(5 * (currentLevel + 2));
+	timer(5 * (currentLevel + 2) );
 	
 	animateBoxes = document.querySelectorAll(".animate");
 	
 	animateEnemy(animateBoxes, 0, "right");
 	
 }//loadLevel
+
 
 //timer
 function timer(time) {
@@ -269,17 +285,10 @@ function timer(time) {
 		return;
 	}//if
 	
-	//pause timer
-	if (time == -2) {
-		document.getElementById("timer").innerHTML = "paused";
-		clearTimeout(timerAnimation);
-		return;
-	}//if
-	
 	//time up
 	if (time <= 0) {
 		document.getElementById("timer").innerHTML = "0";
-		gameOver("Time Up.");
+		gameOver("Time Elapsed.");
 		clearTimeout(timer);
 		return;
 	}//if
@@ -289,10 +298,34 @@ function timer(time) {
 	
 	//repeat
 	timerAnimation = setTimeout(function() {
-		timer(time - 0.05);
+		
+		if(ispaused) {
+			timer(time);
+		} else {
+			timer(time - 0.05);
+		}//if else
+		
 	}, 50);//repeat
 	
 }//timer
+
+
+//pause button functionality
+function pause(status) {
+	
+	//pause
+	if(status == 1) {
+		ispaused = true;
+		document.getElementById("pausemessage").style.display = "block";
+	}//if
+	
+	//unpause
+	if(status == 2) {
+		ispaused = false;
+		document.getElementById("pausemessage").style.display = "none";
+	}//if
+	
+}//pause
 
 
 //animate enemy left and right
@@ -370,6 +403,7 @@ function gameOver(reason) {
 	document.getElementById("deathreason").innerHTML = reason;
 	
 	//stop action
+	document.getElementById("pause").style.display = "none";
 	clearTimeout(currentAnimation);
 	timer(-1);
 	canMove = false;
