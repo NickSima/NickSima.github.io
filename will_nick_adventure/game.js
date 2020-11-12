@@ -4,7 +4,7 @@ const levels = [
 	"fenceup", "rock", "", "", "rider",
 	"", "tree", "animate", "animate", "animate",
 	"", "water", "", "", "",
-	"", "fenceleft", "", "horseup", "",],
+	"", "fenceside", "", "horseup", "",],
 	
 	//level 1
 	["flag", "water", "", "", "",
@@ -17,7 +17,7 @@ const levels = [
 	["tree", "tree", "flag", "tree", "tree",
 	"animate", "animate", "animate", "animate", "animate",
 	"water", "bridge", "water", "water", "water",
-	"", "", "", "fenceright", "",
+	"", "", "", "fenceside", "",
 	"rider", "rock", "", "", "horseup",]
 ]; //end of levels
 
@@ -45,25 +45,25 @@ document.addEventListener("keydown", function(e){
 	switch (e.keyCode) {
 		case 65:
 		case 37://left
-			if (currentLocationOfHorse % widthOfBoard !== 0 && canMove == true){
+			if (currentLocationOfHorse % widthOfBoard !== 0 && canMove){
 				tryToMove("left");
 			}//if
 			break;
 		case 87:
 		case 38://up
-			if (currentLocationOfHorse >= widthOfBoard && canMove == true){
+			if (currentLocationOfHorse >= widthOfBoard && canMove){
 				tryToMove("up");
 			}//if
 			break;
 		case 68:
 		case 39://right
-			if (currentLocationOfHorse % widthOfBoard < widthOfBoard - 1 && canMove == true){
+			if (currentLocationOfHorse % widthOfBoard < widthOfBoard - 1 && canMove){
 				tryToMove("right");
 			}//if
 			break;
 		case 83:
 		case 40://down
-			if (currentLocationOfHorse + widthOfBoard < widthOfBoard * widthOfBoard && canMove == true){
+			if (currentLocationOfHorse + widthOfBoard < widthOfBoard * widthOfBoard && canMove){
 				tryToMove("down");
 			}//if
 			break;
@@ -266,7 +266,7 @@ function loadLevel(){
 	}//for
 	
 	//start timer
-	timer(5 * (currentLevel + 2) );
+	timer(10);
 	
 	animateBoxes = document.querySelectorAll(".animate");
 	
@@ -335,6 +335,15 @@ var currentLocationOfEnemy = 0;
 	//exit function if no animation
 	if (boxes.length <= 0) {return;}
 	
+	//wait if paused
+	if(ispaused) {
+		//wait
+		setTimeout(function() {
+			animateEnemy(boxes, index, direction);
+		}, 750);
+		return;
+	}//if
+	
 	//end game if horse is on player
 	for (i = 0; i < gridBoxes.length; i++) {
 		if (levels[currentLevel][i].includes("animate")) {
@@ -387,11 +396,12 @@ var currentLocationOfEnemy = 0;
 		}//if else
 		
 	}//if else
-
+		
+	//repeat
 	currentAnimation = setTimeout(function() {
 		animateEnemy(boxes, index, direction);
 	}, 750);
-	
+		
 }//animate Enemy
 
 

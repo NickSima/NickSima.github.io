@@ -3,7 +3,7 @@ body {
 }
 
 #gameBoard{
-	background-image: url("images/tile.png");
+	background-image: url("images/tile.jpg");
 	border: 1px solid black;
 	display: grid;
 	grid-template-columns: 120px 120px 120px 120px 120px;
@@ -104,14 +104,8 @@ body {
 .fenceup {
 	background-image: url("images/fenceup.png");
 }
-.fencedown {
-	background-image: url("images/fenced.png");
-}
-.fenceleft {
-	background-image: url("images/fencel.png");
-}
-.fenceright {
-	background-image: url("images/fencer.png");
+.fenceside {
+	background-image: url("images/fenceside.png");
 }
 
 .horseup {
@@ -167,5 +161,5 @@ body {
 }
 
 .bridge {
-	background-color: #800020 !important;
+	background-color: #7C4E0F;
 }
