@@ -1,5 +1,12 @@
 const levels = [
-	//level 0
+	// level 1
+	["flag", "tree", "", "", "flag",
+	"fenceup", "tree", "", "", "rock",
+	"", "water", "animate", "animate", "animate",
+	"fenceup", "tree", "", "", "",
+	"", "", "", "horseup", "",],
+	
+	//level 4
 	["horsedown", "rock", "rock", "flag", "",
 	"", "tree", "", "tree", "fenceup",
 	"animate", "animate", "animate", "animate", "animate",
