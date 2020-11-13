@@ -8,7 +8,7 @@ const levels = [
 	
 	// level 2
 	// ["", "", "animate", "animate", "animate",
-	// "fencedown", "water", "", "", "rider",
+	// "fenceup", "water", "", "", "rider",
 	// "flag", "tree", "", "", "",
 	// "fenceup", "water", "animate", "animate", "animate",
 	// "", "", "horseup", "", "",],
@@ -16,7 +16,7 @@ const levels = [
 	// level 3
 	["tree", "", "", "fenceside", "",
 	"animate", "animate", "animate", "water", "",
-	"", "rock", "", "water", "fencedown",
+	"", "rock", "", "water", "fenceup",
 	"", "rock", "", "water", "",
 	"rider", "tree", "horseup", "water", "flag",],
 	
