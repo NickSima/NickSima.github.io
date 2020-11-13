@@ -22,8 +22,8 @@ const levels = [
 	
 	// level 4
 	["", "fenceside", "flag", "fenceside", "",
-	"", "", "rider", "", "",
-	"animate", "animate", "", "animate", "animate",
+	"", "tree", "rider", "tree", "",
+	"animate", "animate", "animate", "animate", "animate",
 	"", "water", "water", "water", "",
 	"", "", "horseup", "", "",],
 	
