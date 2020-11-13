@@ -1,55 +1,40 @@
 const levels = [
-	// level 1
+			
+	// level 1 (0)
+	["", "", "", "", "flag",
+	 "fenceup", "tree", "tree", "tree", "tree",
+	 "", "", "rock", "rock", "rock",
+	 "rider", "rock", "", "horseup", "",
+	 "", "", "animate", "animate", "animate",],
+	 
+	// level 2 (1)
 	["flag", "tree", "", "", "rider",
 	"fenceup", "tree", "", "", "rock",
 	"", "water", "animate", "animate", "animate",
 	"fenceup", "tree", "", "", "",
 	"", "", "", "horseup", "",],
+
 	
-	// level 2
-	// ["", "", "animate", "animate", "animate",
-	// "fenceup", "water", "", "", "rider",
-	// "flag", "tree", "", "", "",
-	// "fenceup", "water", "animate", "animate", "animate",
-	// "", "", "horseup", "", "",],
-	
-	// level 3
-	["tree", "", "", "fenceside", "",
-	"animate", "animate", "animate", "water", "",
+	// level 3 (2)
+	["", "rock", "rider", "rock", "",
+	"", "tree", "", "tree", "",
+	"animate", "animate", "animate", "animate", "animate",
+	"", "water", "water", "water", "fenceup",
+	"", "horseup", "tree", "flag", "",],
+		
+	// level 4 (3)
+	["tree", "", "tree", "water", "",
+	"animate", "animate", "animate", "fenceside", "",
 	"", "rock", "", "water", "fenceup",
 	"", "rock", "", "water", "",
 	"rider", "tree", "horseup", "water", "flag",],
-	
-	// level 4
-	["", "fenceside", "flag", "fenceside", "",
-	"", "tree", "rider", "tree", "",
-	"animate", "animate", "animate", "animate", "animate",
-	"", "water", "water", "water", "",
-	"", "", "horseup", "", "",],
-	
-	// level 5
-	["", "", "flag", "", "",
-	 "fenceup", "tree", "tree", "tree", "tree",
-	 "", "", "rock", "rock", "rock",
-	 "rider", "rock", "", "horseup", "",
-	 "", "", "animate", "animate", "animate",],
-	
-	
-	//level 6
+
+	//level 5 (4)
 	["horsedown", "rock", "rock", "flag", "",
 	"", "tree", "", "tree", "fenceup",
 	"animate", "animate", "animate", "animate", "animate",
 	"", "tree", "tree", "tree", "",
-	"", "water", "rider", "", "",],
-	
-	
-	// level 7
-	// ["", "water", "", "fenceside", "flag",
-	// "animate", "", "rider", "animate", "animate",
-	// "", "", "tree", "", "",
-	// "animate", "animate", "tree", "animate", "animate",
-	// "rock", "", "horseup", "", "rock",],
-	 
+	"", "water", "rider", "", "",]
 	
 ]; //end of levels
 
@@ -298,7 +283,7 @@ function loadLevel(){
 	}//for
 	
 	//start timer
-	timer(10);
+	timer(10 + (currentLevel * 2) );
 	
 	animateBoxes = document.querySelectorAll(".animate");
 	
