@@ -1,31 +1,54 @@
 const levels = [
 	// level 1
-	["flag", "tree", "", "", "flag",
+	["flag", "tree", "", "", "rider",
 	"fenceup", "tree", "", "", "rock",
 	"", "water", "animate", "animate", "animate",
 	"fenceup", "tree", "", "", "",
 	"", "", "", "horseup", "",],
 	
-	//level 4
+	// level 2
+	["", "", "animate", "animate", "animate",
+	"fencedown", "water", "", "", "rider",
+	"flag", "tree", "", "", "",
+	"fenceup", "water", "animate", "animate", "animate",
+	"", "", "horseup", "", "",],
+	
+	// level 3
+	["tree", "", "tree", "fenceside", "",
+	"animate", "animate", "animate", "water", "",
+	"", "rock", "", "water", "fencedown",
+	"", "rock", "", "water", "",
+	"rider", "tree", "horseup", "water", "flag",],
+	
+	// level 4
+	["", "fenceside", "flag", "fenceside", "",
+	"", "", "rider", "", "",
+	"animate", "animate", "", "animate", "animate",
+	"", "water", "water", "water", "",
+	"", "", "horseup", "", "",],
+	
+	//level 5
 	["horsedown", "rock", "rock", "flag", "",
 	"", "tree", "", "tree", "fenceup",
 	"animate", "animate", "animate", "animate", "animate",
 	"", "tree", "tree", "tree", "",
 	"", "water", "rider", "", "",],
 	
-	//level 1
-	["flag", "water", "", "", "",
-	"fenceup", "water", "", "", "rider",
-	"animate", "bridge animate", "animate", "animate", "animate",
-	"", "water", "", "", "",
-	"", "water", "horseup", "", "",],
+	// level 6
+	["", "", "flag", "", "",
+	 "fenceup", "tree", "tree", "tree", "fenceup",
+	 "", "", "animate", "animate", "animate",
+	 "rider", "rock", "", "horsel", "",
+	 "", "", "animate", "animate", "animate",],
 	
-	//level 2
-	["tree", "tree", "flag", "tree", "tree",
-	"animate", "animate", "animate", "animate", "animate",
-	"water", "bridge", "water", "water", "water",
-	"", "", "", "fenceside", "",
-	"rider", "rock", "", "", "horseup",]
+	// level 7
+	["", "water", "", "fenceside", "flag",
+	 "animate", "animate", "rider", "animate", "animate",
+	 "", "", "tree", "", "",
+	 "animate", "animate", "tree", "animate", "animate",
+	 "rock", "", "horseup", "", "rock",],
+	 
+	
 ]; //end of levels
 
 const impassables = ["rock", "tree", "water"];
