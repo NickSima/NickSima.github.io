@@ -21,21 +21,22 @@ const levels = [
 	"animate", "animate", "animate", "animate", "animate",
 	"", "water", "water", "water", "fenceup",
 	"", "horseup", "tree", "flag", "",],
-		
-	// level 4 (3)
-	["tree", "", "tree", "water", "",
-	"animate", "animate", "animate", "fenceside", "",
-	"", "rock", "", "water", "fenceup",
-	"", "rock", "", "water", "",
-	"rider", "tree", "horseup", "water", "flag",],
+	
 
-	//level 5 (4)
+	//level 4 (3)
 	["horsedown", "rock", "rock", "flag", "",
 	"", "tree", "", "tree", "fenceup",
 	"animate", "animate", "animate", "animate", "animate",
 	"", "tree", "tree", "tree", "",
-	"", "water", "rider", "", "",]
+	"", "water", "rider", "", "",],
 	
+	// level 5 (4)
+	["tree", "", "tree", "water", "",
+	"animate", "animate", "animate", "fenceside", "",
+	"", "rock", "", "water", "fenceup",
+	"", "rock", "", "water", "",
+	"rider", "tree", "horseup", "water", "flag",]
+
 ]; //end of levels
 
 const impassables = ["rock", "tree", "water"];
@@ -49,6 +50,7 @@ var currentAnimation; //allows 1 animation per level
 var timerAnimation; //timer animation
 var widthOfBoard = 5;
 var ispaused = 0;
+var lives = 3; //number of lives
 
 //start game
 window.addEventListener("load", function () {
@@ -230,7 +232,7 @@ function tryToMove(direction) {
 	
 	//encounters enemy
 	if (nextClass.includes("enemy")) {
-		gameOver("Enemy Encountered.");
+		lifeLoss("Encountered Enemy");
 		return;
 	}//if
 	
@@ -254,7 +256,7 @@ function levelUp(nextClass) {
 	if(currentLevel < levels.length - 1){
 		document.getElementById("levelup").style.display = "block";
 	} else {
-		document.getElementById("win").style.display = "block";
+		window.location.replace("win.html");
 		return;
 	}//if else
 	
@@ -275,6 +277,7 @@ function loadLevel(){
 	let levelMap = levels[currentLevel];
 	let animateBoxes;
 	riderOn = false;
+	canMove = true;
 	
 	//load board
 	for (i = 0; i < gridBoxes.length; i++) {
@@ -282,11 +285,20 @@ function loadLevel(){
 		if (levelMap[i].includes("horse")) currentLocationOfHorse = i;
 	}//for
 	
+	//load lives
+	document.getElementById("lifeloss").style.display = "none";
+	for (i = 0; i < 3; i++) {
+		document.getElementById("life" + (i + 1) ).style.display = "none";
+	}//for
+	for (i = 0; i < lives; i++) {
+		document.getElementById("life" + (i + 1) ).style.display = "inline-block";
+	}//for
+	
 	//start timer
 	timer(10 + (currentLevel * 2) );
 	
+	//start enemy animation
 	animateBoxes = document.querySelectorAll(".animate");
-	
 	animateEnemy(animateBoxes, 0, "right");
 	
 }//loadLevel
@@ -305,7 +317,7 @@ function timer(time) {
 	//time up
 	if (time <= 0) {
 		document.getElementById("timer").innerHTML = "0";
-		gameOver("Time Elapsed.");
+		lifeLoss("Time Elapsed.");
 		clearTimeout(timer);
 		return;
 	}//if
@@ -333,12 +345,14 @@ function pause(status) {
 	//pause
 	if(status == 1) {
 		ispaused = true;
+		canMove = false;
 		document.getElementById("pausemessage").style.display = "block";
 	}//if
 	
 	//unpause
 	if(status == 2) {
 		ispaused = false;
+		canMove = true;
 		document.getElementById("pausemessage").style.display = "none";
 	}//if
 	
@@ -361,7 +375,7 @@ var currentLocationOfEnemy = 0;
 		return;
 	}//if
 	
-	//end game if horse is on player
+	//end game if enemy is on player
 	for (i = 0; i < gridBoxes.length; i++) {
 		if (levels[currentLevel][i].includes("animate")) {
 			currentLocationOfEnemy = i + index;
@@ -369,7 +383,7 @@ var currentLocationOfEnemy = 0;
 		}
 	}//for
 	if (currentLocationOfEnemy == currentLocationOfHorse) {
-		gameOver("Encountered by Enemy.");
+		lifeLoss("Encountered by Enemy.");
 		return;
 	}//if
 	
@@ -420,6 +434,31 @@ var currentLocationOfEnemy = 0;
 	}, 750);
 		
 }//animate Enemy
+
+
+function lifeLoss(reason) {
+	
+	//lose a life
+	lives--;
+	
+	//check if 0
+	if (lives <= 0){
+		gameOver(reason)
+	} else {
+		
+		//display losing message
+		document.getElementById("lifeloss").style.display = "block";
+		document.getElementById("deathreason").innerHTML = reason;
+	
+		//stop action
+		document.getElementById("pause").style.display = "none";
+		clearTimeout(currentAnimation);
+		timer(-1);
+		canMove = false;
+		
+	}//if else
+	
+}//lifeLoss
 
 
 //display losing screen
