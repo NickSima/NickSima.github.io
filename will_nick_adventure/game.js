@@ -27,19 +27,21 @@ const levels = [
 	"", "water", "water", "water", "",
 	"", "", "horseup", "", "",],
 	
-	//level 5
+	// level 5
+	["", "", "flag", "", "",
+	 "fenceup", "tree", "tree", "tree", "tree",
+	 "", "", "rock", "rock", "rock",
+	 "rider", "rock", "", "horseup", "",
+	 "", "", "animate", "animate", "animate",],
+	
+	
+	//level 6
 	["horsedown", "rock", "rock", "flag", "",
 	"", "tree", "", "tree", "fenceup",
 	"animate", "animate", "animate", "animate", "animate",
 	"", "tree", "tree", "tree", "",
 	"", "water", "rider", "", "",],
 	
-	// level 6
-	["", "", "flag", "", "",
-	 "fenceup", "tree", "tree", "tree", "tree",
-	 "", "", "rock", "rock", "rock",
-	 "rider", "rock", "", "horseup", "",
-	 "", "", "animate", "animate", "animate",],
 	
 	// level 7
 	// ["", "water", "", "fenceside", "flag",
