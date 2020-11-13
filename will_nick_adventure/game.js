@@ -1,5 +1,5 @@
 const levels = [
-			
+
 	// level 1 (0)
 	["", "", "", "", "flag",
 	 "fenceup", "tree", "tree", "tree", "tree",
@@ -22,15 +22,21 @@ const levels = [
 	"", "water", "water", "water", "fenceup",
 	"", "horseup", "tree", "flag", "",],
 	
-
 	//level 4 (3)
+	[ "horseup", "", "", "fenceside", "",
+	"tree", "animate", "tree", "tree", "",
+	"animate", "animate", "animate", "tree", "fenceup",
+	"", "animate", "rock", "rock", "",
+	"rider", "water", "water", "water", "flag",],
+	
+	//level 5 (4)
 	["horsedown", "rock", "rock", "flag", "",
 	"", "tree", "", "tree", "fenceup",
 	"animate", "animate", "animate", "animate", "animate",
 	"", "tree", "tree", "tree", "",
 	"", "water", "rider", "", "",],
 	
-	// level 5 (4)
+	// level 6 (5)
 	["tree", "", "tree", "water", "",
 	"animate", "animate", "animate", "fenceside", "",
 	"", "rock", "", "water", "fenceup",
@@ -279,6 +285,8 @@ function loadLevel(){
 	riderOn = false;
 	canMove = true;
 	
+	document.getElementById("levelname").innerHTML = "Level " + (currentLevel + 1);
+	
 	//load board
 	for (i = 0; i < gridBoxes.length; i++) {
 		gridBoxes[i].className = levelMap[i];
@@ -286,6 +294,7 @@ function loadLevel(){
 	}//for
 	
 	//load lives
+	document.getElementById("lives").style.display = "inline-block";
 	document.getElementById("lifeloss").style.display = "none";
 	for (i = 0; i < 3; i++) {
 		document.getElementById("life" + (i + 1) ).style.display = "none";
@@ -452,6 +461,7 @@ function lifeLoss(reason) {
 	
 		//stop action
 		document.getElementById("pause").style.display = "none";
+		document.getElementById("lives").style.display = "none";
 		clearTimeout(currentAnimation);
 		timer(-1);
 		canMove = false;
@@ -470,6 +480,7 @@ function gameOver(reason) {
 	
 	//stop action
 	document.getElementById("pause").style.display = "none";
+	document.getElementById("lives").style.display = "none";
 	clearTimeout(currentAnimation);
 	timer(-1);
 	canMove = false;

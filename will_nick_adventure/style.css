@@ -80,6 +80,13 @@ a{
 	z-index: 0;
 }
 
+#levelname{
+	color: white;
+	text-align: center;
+	font-family: 'MS Gothic', sans-serif;
+	font-weight: bold;
+}
+
 #timer{
 	display: inline-block;
 	position: relative;
