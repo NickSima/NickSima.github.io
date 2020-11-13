@@ -37,10 +37,10 @@ const levels = [
 	
 	//level 6 (5)
 	[ "horseup", "", "", "fenceside", "",
-	"tree", "animate", "tree", "tree", "",
-	"animate", "animate", "animate", "tree", "fenceup",
-	"", "animate", "rock", "rock", "",
-	"rider", "water", "water", "water", "flag",],
+	"tree", "", "tree", "tree", "flag",
+	"tree", "animate", "animate", "tree", "rock",
+	"tree", "", "rock", "rock", "",
+	"tree", "", "", "", "rider",],
 	
 	//level 7 (6)
 	["tree", "", "tree", "water", "",
@@ -463,7 +463,7 @@ function lifeLoss(reason) {
 		
 		//display losing message
 		document.getElementById("lifeloss").style.display = "block";
-		document.getElementById("deathreason").innerHTML = reason;
+		document.getElementById("lossreason").innerHTML = reason;
 	
 		//stop action
 		document.getElementById("pause").style.display = "none";
