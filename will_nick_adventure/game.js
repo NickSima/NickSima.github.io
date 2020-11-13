@@ -7,14 +7,14 @@ const levels = [
 	"", "", "", "horseup", "",],
 	
 	// level 2
-	["", "", "animate", "animate", "animate",
-	"fencedown", "water", "", "", "rider",
-	"flag", "tree", "", "", "",
-	"fenceup", "water", "animate", "animate", "animate",
-	"", "", "horseup", "", "",],
+	// ["", "", "animate", "animate", "animate",
+	// "fencedown", "water", "", "", "rider",
+	// "flag", "tree", "", "", "",
+	// "fenceup", "water", "animate", "animate", "animate",
+	// "", "", "horseup", "", "",],
 	
 	// level 3
-	["tree", "", "tree", "fenceside", "",
+	["tree", "", "", "fenceside", "",
 	"animate", "animate", "animate", "water", "",
 	"", "rock", "", "water", "fencedown",
 	"", "rock", "", "water", "",
@@ -37,16 +37,16 @@ const levels = [
 	// level 6
 	["", "", "flag", "", "",
 	 "fenceup", "tree", "tree", "tree", "fenceup",
-	 "", "", "animate", "animate", "animate",
+	 "", "", "water", "water", "water",
 	 "rider", "rock", "", "horsel", "",
 	 "", "", "animate", "animate", "animate",],
 	
 	// level 7
-	["", "water", "", "fenceside", "flag",
-	 "animate", "animate", "rider", "animate", "animate",
-	 "", "", "tree", "", "",
-	 "animate", "animate", "tree", "animate", "animate",
-	 "rock", "", "horseup", "", "rock",],
+	// ["", "water", "", "fenceside", "flag",
+	// "animate", "", "rider", "animate", "animate",
+	// "", "", "tree", "", "",
+	// "animate", "animate", "tree", "animate", "animate",
+	// "rock", "", "horseup", "", "rock",],
 	 
 	
 ]; //end of levels
