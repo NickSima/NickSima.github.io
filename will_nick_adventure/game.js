@@ -36,8 +36,8 @@ const levels = [
 	
 	// level 6
 	["", "", "flag", "", "",
-	 "fenceup", "tree", "tree", "tree", "fenceup",
-	 "", "", "water", "water", "water",
+	 "fenceup", "tree", "tree", "tree", "tree",
+	 "", "", "rock", "rock", "rock",
 	 "rider", "rock", "", "horsel", "",
 	 "", "", "animate", "animate", "animate",],
 	
